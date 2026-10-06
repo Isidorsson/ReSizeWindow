@@ -11,6 +11,12 @@ For resizing, the window is split into a 3×3 grid. Grab near an edge to move th
 
 Releasing Win after a drag does not open the Start menu.
 
+## Download
+
+Grab `ReSizeWindow.exe` from the [latest release](https://github.com/Isidorsson/ReSizeWindow/releases/latest) and run it. No installer, just one file. Requires .NET Framework 4, which every Windows 10/11 machine already has.
+
+The exe is unsigned, so Windows SmartScreen may warn on first launch. Choose **More info → Run anyway**, or build it yourself (below).
+
 ## Tray menu
 
 The app lives in the system tray. The icon is blue when active and grey when paused.
@@ -39,3 +45,7 @@ Exit the running app before rebuilding, since Windows locks the exe while it run
 ## How it works
 
 Low-level mouse and keyboard hooks (`WH_MOUSE_LL`, `WH_KEYBOARD_LL`). The Win+click is swallowed and the target window is moved with `SetWindowPos`. To keep Start closed, the Win key release is held back and replayed after an unassigned key (`vkE8`), so Windows treats Win as part of a shortcut.
+
+## License
+
+[MIT](LICENSE)
