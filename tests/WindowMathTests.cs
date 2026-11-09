@@ -16,6 +16,8 @@ namespace ReSizeWindow.Tests
             Resize_SingleEdge_LeavesOtherAxis();
             Resize_ClampsToMinimum_WithoutDrifting();
 
+            Insets_ShrinkAndGrow_RoundTrip();
+
             Unmaximize_KeepsCursorRelativePosition();
             Unmaximize_ZeroWidth_CentersOnCursor();
         }
@@ -67,6 +69,15 @@ namespace ReSizeWindow.Tests
                 WindowMath.Resize(Window, Edges.Left, 1000, 0, 50, 50));
             AssertEqual("clamp bottom", new Box(100, 100, 400, 150),
                 WindowMath.Resize(Window, Edges.Bottom, 0, -1000, 50, 50));
+        }
+
+        private static void Insets_ShrinkAndGrow_RoundTrip()
+        {
+            var frame = new Box(107, 100, 393, 393);
+            Insets insets = WindowMath.InsetsBetween(Window, frame);
+            AssertEqual("insets shrink", frame, WindowMath.Shrink(Window, insets));
+            AssertEqual("insets grow", Window, WindowMath.Grow(frame, insets));
+            AssertEqual("insets measured", new Insets(7, 0, 7, 7), insets);
         }
 
         private static void Unmaximize_KeepsCursorRelativePosition()

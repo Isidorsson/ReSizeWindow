@@ -20,10 +20,13 @@ namespace ReSizeWindow
                 Application.EnableVisualStyles();
 
                 using (var guard = new StartMenuGuard())
-                using (var drag = new DragController(guard.Policy))
+                using (var tiler = new Tiler())
+                using (var drag = new DragController(guard.Policy, tiler))
+                using (var alwaysOnTop = new AlwaysOnTop())
                 {
                     guard.Policy.BlockLeftWin = Settings.BlockLeftWin;
-                    using (new Tray(drag, guard.Policy)) Application.Run();
+                    alwaysOnTop.Toggled += tiler.Refresh;
+                    using (new Tray(drag, guard.Policy, alwaysOnTop, tiler)) Application.Run();
                 }
             }
         }

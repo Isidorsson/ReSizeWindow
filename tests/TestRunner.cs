@@ -10,7 +10,11 @@ namespace ReSizeWindow.Tests
         private static int Main()
         {
             WindowMathTests.Run();
+            SnappingTests.Run();
+            TouchGroupTests.Run();
             StartMenuPolicyTests.Run();
+            TilingLayoutTests.Run();
+            TilingOrderTests.Run();
 
             foreach (string failure in Failures) Console.WriteLine("FAIL " + failure);
             Console.WriteLine(Failures.Count == 0 ? "All tests passed" : Failures.Count + " test(s) failed");

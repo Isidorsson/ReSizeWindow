@@ -33,11 +33,40 @@ namespace ReSizeWindow
         }
     }
 
+    // Gap between a window rect and its visible frame (the invisible resize borders).
+    internal struct Insets
+    {
+        public readonly int Left, Top, Right, Bottom;
+
+        public Insets(int left, int top, int right, int bottom)
+        {
+            Left = left;
+            Top = top;
+            Right = right;
+            Bottom = bottom;
+        }
+    }
+
     internal static class WindowMath
     {
         public static Box Offset(Box start, int dx, int dy)
         {
             return new Box(start.Left + dx, start.Top + dy, start.Right + dx, start.Bottom + dy);
+        }
+
+        public static Insets InsetsBetween(Box rect, Box frame)
+        {
+            return new Insets(frame.Left - rect.Left, frame.Top - rect.Top, rect.Right - frame.Right, rect.Bottom - frame.Bottom);
+        }
+
+        public static Box Shrink(Box rect, Insets insets)
+        {
+            return new Box(rect.Left + insets.Left, rect.Top + insets.Top, rect.Right - insets.Right, rect.Bottom - insets.Bottom);
+        }
+
+        public static Box Grow(Box frame, Insets insets)
+        {
+            return new Box(frame.Left - insets.Left, frame.Top - insets.Top, frame.Right + insets.Right, frame.Bottom + insets.Bottom);
         }
 
         // The window is split into a 3x3 grid: outer cells grab that edge or corner,

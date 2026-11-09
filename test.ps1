@@ -6,7 +6,11 @@ New-Item -ItemType Directory -Force $bin | Out-Null
 
 $sources = @(
     (Join-Path $PSScriptRoot 'src\WindowMath.cs'),
-    (Join-Path $PSScriptRoot 'src\StartMenuPolicy.cs')
+    (Join-Path $PSScriptRoot 'src\Snapping.cs'),
+    (Join-Path $PSScriptRoot 'src\TouchGroup.cs'),
+    (Join-Path $PSScriptRoot 'src\StartMenuPolicy.cs'),
+    (Join-Path $PSScriptRoot 'src\TilingLayout.cs'),
+    (Join-Path $PSScriptRoot 'src\TilingOrder.cs')
 ) + (Get-ChildItem (Join-Path $PSScriptRoot 'tests\*.cs') | ForEach-Object FullName)
 & $csc /nologo /target:exe /out:"$bin\WindowMathTests.exe" $sources
 if ($LASTEXITCODE) { throw 'Test build failed' }
